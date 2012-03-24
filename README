@@ -1,0 +1,13 @@
+Help for random.org client
+
+Options:
+	-b	Which base should we use? 2 8 10 16
+	-B	Specify bottom (lower bound) -1E9 -- 1E9
+	-h	Display this help
+	-n	How many numbers do you want? max. 1000 
+	-o	Specify a file to write in. The output is appended. Else, stdout is used
+	-T	Specify top (higher bound) -1E9 -- 1E9
+	-v	Be verbose
+
+The limitations given here are applied by random.org, not by this application.
+For bug reports etc. please use github.com/dermesser/random.org-client or <der.messer@gmx.de>
