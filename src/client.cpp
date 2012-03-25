@@ -27,25 +27,6 @@ struct err
 	err(const char* e) : errmsg(e) {}
 };
 
-void cut_header(int sock)
-{
-	char buffer;
-	int brcount = 0;
-
-	// Cut the HTTP header
-	while ( 0 < read(sock,&buffer,1) )
-	{
-		if ( buffer == 0x0d || buffer == 0x0a)
-		{
-			++brcount;
-			if ( brcount == 4 )
-				break;
-		} else
-		{
-			brcount = 0;
-		}
-	}
-}
 
 int request(int number, long long bottom, long long top, char base)
 {
@@ -64,6 +45,26 @@ int request(int number, long long bottom, long long top, char base)
 	shutdown(sock,SHUT_WR);
 
 	return sock;
+}
+
+void cut_header(int sock)
+{
+	char buffer;
+	int brcount = 0;
+
+	// Cut the HTTP header
+	while ( 0 < read(sock,&buffer,1) ) // read single character
+	{
+		if ( buffer == 0x0d || buffer == 0x0a) // increment counter if character is part of the linebreak 0x0d0a
+		{
+			++brcount;
+			if ( brcount == 4 ) // If we counted 4 such linebreaks, the HTTP header is finished
+				break;
+		} else
+		{
+			brcount = 0; // if we get another char, it is not the double 0x0d0a after the header
+		}
+	}
 }
 
 void get_data(int sock, int fileout)
