@@ -157,10 +157,22 @@ int main(int argc, char** argv)
 		fileout = open_outfile(outfile);
 	}
 
+	if ( verbose == true )
+		std::cout << "DBG: Sending Request\n";
+
+	// Build network connection and send the HTTP request
 	sock = request(number,bottom,top,base);
 	
+	if ( verbose == true )
+		std::cout << "DBG: Got answer, processing response\n";
+
+	// Remove the HTTP header (algorithm is explained above)
 	cut_header(sock);
 
+	if ( verbose == true )
+		std::cout << "DBG: Processed raw answer, continuing with getting numbers\n";
+
+	// Simply read the numbers from the socket and write it to stdout
 	get_data(sock,fileout);
 
 	return 0;
