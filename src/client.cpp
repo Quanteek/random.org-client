@@ -23,8 +23,8 @@ Options:\n\
 
 struct err
 {
-	err(const char* e) { errmsg = e; }
-	const char* errmsg;
+	std::string errmsg;
+	err(const char* e) : errmsg(e) {}
 };
 
 void cut_header(int sock)
