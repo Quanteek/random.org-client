@@ -92,6 +92,8 @@ int open_outfile(const char* outfile)
 
 int main(int argc, char** argv)
 {
+	// I'm using linux file descriptors instead of streams because it's easier to handle ints
+	// than some polymorphic stream types (ostream, ofstream etc)
 	int buf = 0, fileout = 1, sock;
 	unsigned short number = 1;
 	char base = 10; 
